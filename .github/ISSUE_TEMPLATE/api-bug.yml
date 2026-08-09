@@ -1,0 +1,45 @@
+name: Bug report
+description: An endpoint, MCP tool or site page misbehaving
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Do not include your API key.** Replace it with `YOUR_KEY` in any
+        request you paste.
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where
+      options:
+        - REST API (/v1/…)
+        - MCP server (/mcp)
+        - Website / docs
+        - Webhooks / daily change feed
+    validations:
+      required: true
+  - type: input
+    id: endpoint
+    attributes:
+      label: Endpoint or tool
+      placeholder: e.g. GET /v1/appeals or get_postcode_stats
+    validations:
+      required: true
+  - type: textarea
+    id: request
+    attributes:
+      label: Request you made (key redacted)
+      render: shell
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened instead
+      description: Response body, status code, or error — whatever you got.
+    validations:
+      required: true

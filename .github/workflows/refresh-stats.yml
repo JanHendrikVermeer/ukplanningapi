@@ -1,0 +1,62 @@
+# Keeps the README's headline counts honest without anyone remembering to.
+#
+# The API server rebuilds its discovery files (including /.well-known/mcp.json,
+# which carries the exact counts) every Sunday at 03:00 London. This runs Monday
+# morning, reads those counts, and rewrites the README table and its "figures
+# above are from ..." date. No change -> no commit, so the history stays quiet
+# unless the data actually moved.
+#
+# If the mcp.json description format ever changes, the parse fails the run
+# loudly rather than guessing — a red X here beats silently wrong numbers.
+name: Refresh README stats
+
+on:
+  schedule:
+    - cron: "17 6 * * 1" # Mondays 06:17 UTC, after Sunday night's rebuild
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pull live counts and rewrite README
+        run: |
+          python3 - <<'PY'
+          import datetime, json, re, urllib.request
+
+          data = json.load(urllib.request.urlopen(
+              "https://ukplanningapi.co.uk/.well-known/mcp.json", timeout=30))
+          desc = data["description"]
+
+          m = re.search(r"([\d,]+) applications, ([\d,]+) appeals, "
+                        r"([\d,]+) enforcement notices across (\d+) councils", desc)
+          if not m:
+              raise SystemExit("mcp.json description format changed - refusing to guess")
+          apps, appeals, enf, councils = m.groups()
+
+          g = re.search(r"Generated (\d{4}-\d{2}-\d{2})", desc)
+          d = datetime.date.fromisoformat(g.group(1)) if g else datetime.date.today()
+          nice = f"{d.day} {d.strftime('%B %Y')}"
+
+          r = open("README.md", encoding="utf-8").read()
+          r = re.sub(r"(\| Planning applications \| )[\d,]+", rf"\g<1>{apps}", r)
+          r = re.sub(r"(\| Councils with data \| )\d+",       rf"\g<1>{councils}", r)
+          r = re.sub(r"(\| Appeal records \| )[\d,]+",        rf"\g<1>{appeals}", r)
+          r = re.sub(r"(\| Enforcement notices \| )[\d,]+",   rf"\g<1>{enf}", r)
+          r = re.sub(r"figures above are from \d+ [A-Za-z]+ \d{4}",
+                     f"figures above are from {nice}", r)
+          open("README.md", "w", encoding="utf-8", newline="").write(r)
+          PY
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "Refresh data counts from ukplanningapi.co.uk"
+          git push

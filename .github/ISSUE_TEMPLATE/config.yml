@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: API documentation
+    url: https://ukplanningapi.co.uk/api-docs
+    about: Endpoints, parameters, response shapes and per-council field coverage.
+  - name: MCP setup guide
+    url: https://ukplanningapi.co.uk/mcp-setup
+    about: Connect the data to Claude, ChatGPT or any MCP client.
+  - name: Account, billing or API key help
+    url: mailto:help@ukplanningapi.co.uk
+    about: Private matters go to email, not the public tracker.

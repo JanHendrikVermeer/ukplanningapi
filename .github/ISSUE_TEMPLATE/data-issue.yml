@@ -1,0 +1,48 @@
+name: Data issue
+description: Wrong, missing, stale or duplicated planning data
+labels: ["data-quality"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks — data reports are the most valuable issues this tracker gets.
+        **Do not include your API key anywhere in this form.**
+  - type: input
+    id: council
+    attributes:
+      label: Council
+      placeholder: e.g. Bradford
+    validations:
+      required: true
+  - type: input
+    id: reference
+    attributes:
+      label: Application / appeal / notice reference
+      description: The council's own reference if you have it
+      placeholder: e.g. 24/02520/HOU
+  - type: dropdown
+    id: problem
+    attributes:
+      label: What kind of problem
+      options:
+        - Missing — the record exists at the council but not in the API
+        - Incorrect — a field is wrong (decision, date, address, officer…)
+        - Stale — the council updated it but the API still shows the old state
+        - Duplicate — the same record appears more than once
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What you saw vs. what the council publishes
+      description: |
+        The API response (key redacted) or site page, and a link to the record
+        on the council's own planning register if possible.
+    validations:
+      required: true
+  - type: input
+    id: endpoint
+    attributes:
+      label: Where you saw it
+      placeholder: e.g. GET /v1/applications?postcode=… or the search_applications MCP tool

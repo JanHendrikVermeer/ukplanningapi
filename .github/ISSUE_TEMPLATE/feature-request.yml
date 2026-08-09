@@ -1,0 +1,26 @@
+name: Feature request
+description: Something the API or MCP server should do but doesn't
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do
+      description: The task, not the feature — "find all barn conversions near a site" beats "add full-text search".
+    validations:
+      required: true
+  - type: textarea
+    id: workaround
+    attributes:
+      label: How you're doing it today
+      description: Current workaround, if any — it tells us what the feature would replace.
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where it belongs
+      options:
+        - REST API
+        - MCP server
+        - Both
+        - Website / docs
+        - Not sure

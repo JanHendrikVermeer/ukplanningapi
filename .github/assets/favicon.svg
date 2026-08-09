@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- UK Planning API favicon. Monochrome by design — matches p5.css
+       (#212121 on #FAFAFA, no colour anywhere on the site). Three buildings
+       on a ground line: planning + data, legible at 16px. -->
+  <rect width="64" height="64" rx="14" fill="#212121"/>
+  <g fill="#FFFFFF">
+    <rect x="14" y="31" width="8" height="15" rx="1.5"/>
+    <rect x="28" y="21" width="8" height="25" rx="1.5"/>
+    <rect x="42" y="27" width="8" height="19" rx="1.5"/>
+    <rect x="12" y="48" width="40" height="3.5" rx="1.75"/>
+  </g>
+</svg>
