@@ -8,12 +8,12 @@ Public issue tracker for [ukplanningapi.co.uk](https://ukplanningapi.co.uk) — 
 
 | | |
 |---|---|
-| Planning applications | 1,866,936 |
-| Councils with data | 390 |
-| Appeal records | 539,101 |
-| Enforcement notices | 19,526 |
+| Planning applications | 1,497,784 |
+| Councils with data | 318 |
+| Appeal records | 561,816 |
+| Enforcement notices | 26,359 |
 
-Plus 212,000+ planning agents with approval rates, case officers, and ward/postcode summaries. Live counts are on the [homepage](https://ukplanningapi.co.uk) — the figures above are from 16 August 2026 and move daily as the scrape lands. (This table refreshes itself weekly via [a scheduled action](.github/workflows/refresh-stats.yml).)
+Plus 212,000+ planning agents with approval rates, case officers, and ward/postcode summaries. Live counts are on the [homepage](https://ukplanningapi.co.uk) — the figures above are from 24 August 2026 and move daily as the scrape lands. (This table refreshes itself weekly via [a scheduled action](.github/workflows/refresh-stats.yml).)
 
 Coverage honesty: data quality varies enormously between councils, and the API tells you rather than hiding it — per-council field coverage is measured daily and published per council. Enforcement notices are published by 153 of 489 UK councils; the API can only serve what councils publish.
 
